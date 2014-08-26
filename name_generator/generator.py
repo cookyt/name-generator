@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python2
 
 import os
 import random
@@ -55,10 +55,10 @@ class WordGenerator(object):
 
     # Normalize character counts so that the sum of all after-character
     # frequencies for a given position and current-character is equal to 1.
-    for character_counts in positional_counts.values():
-      for next_char_freqs in character_counts.values():
-        norm_factor = sum(next_char_freqs.values())
-        for char, freq in next_char_freqs.items():
+    for character_counts in positional_counts.itervalues():
+      for next_char_freqs in character_counts.itervalues():
+        norm_factor = sum(next_char_freqs.itervalues())
+        for char, freq in next_char_freqs.iteritems():
           next_char_freqs[char] = float(freq) / norm_factor
 
     return positional_counts
@@ -67,7 +67,7 @@ class WordGenerator(object):
     probability = random.random()
 
     cum_probability = 0
-    for next_char, freq in freqs.items():
+    for next_char, freq in freqs.iteritems():
       cum_probability += freq
       if probability <= cum_probability:
         return next_char
@@ -84,13 +84,13 @@ def main():
   first_name_generator = WordGenerator(first_names)
   rand_names = [first_name_generator.GenerateWord() for i in range(100)]
   common_names = set(n for n in rand_names) & set(n for n in first_names)
-  print("Seeded with %d real names" % len(first_names))
-  print("Generated %d names" % len(rand_names))
-  real_name_ratio = len(common_names) / len(rand_names)
-  print("%d generated names are real (%g%%)" %
-        (len(common_names), real_name_ratio))
-  print("Real names which were also generated: %s" % common_names)
-  print("Generated names: %s" % rand_names)
+  print "Seeded with %d real names" % len(first_names)
+  print "Generated %d names" % len(rand_names)
+  real_name_ratio = float(len(common_names)) / len(rand_names)
+  print ("%d generated names are real (%g%%)" %
+         (len(common_names), real_name_ratio))
+  print "Real names which were also generated: %s" % common_names
+  print "Generated names: %s" % rand_names
 
 if __name__ == '__main__':
   main()
