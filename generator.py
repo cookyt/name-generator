@@ -83,8 +83,9 @@ def main():
   common_names = set(n for n in rand_names) & set(n for n in first_names)
   print("Seeded with %d real names" % len(first_names))
   print("Generated %d names" % len(rand_names))
-  print("%d generated names are real (%f%%)" % (len(common_names),
-    len(common_names) / len(rand_names)))
+  real_name_ratio = len(common_names) / len(rand_names)
+  print("%d generated names are real (%g%%)" %
+        (len(common_names), real_name_ratio))
   print("Real names which were also generated: %s" % common_names)
   print("Generated names: %s" % rand_names)
 
