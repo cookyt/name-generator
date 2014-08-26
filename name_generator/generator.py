@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 
-from collections import defaultdict
+import os
 import random
+from collections import defaultdict
 
 def GetNames(fname):
   with open(fname, 'r') as fin:
@@ -77,7 +78,9 @@ class WordGenerator(object):
 
 
 def main():
-  first_names = GetNames('names/first-en.txt')
+  script_dir = os.path.dirname(os.path.realpath(__file__))
+  name_file = os.path.join(script_dir, 'static/first-names_en-US.txt')
+  first_names = GetNames(name_file)
   first_name_generator = WordGenerator(first_names)
   rand_names = [first_name_generator.GenerateWord() for i in range(100)]
   common_names = set(n for n in rand_names) & set(n for n in first_names)
