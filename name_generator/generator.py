@@ -78,8 +78,7 @@ class WordGenerator(object):
 
 
 def main():
-  script_dir = os.path.dirname(os.path.realpath(__file__))
-  name_file = os.path.join(script_dir, 'static/first-names_en-US.txt')
+  name_file = 'instance/data/first-names_en-US.txt'
   first_names = GetNames(name_file)
   first_name_generator = WordGenerator(first_names)
   rand_names = [first_name_generator.GenerateWord() for i in range(100)]
