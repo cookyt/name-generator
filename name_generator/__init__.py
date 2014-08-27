@@ -10,4 +10,5 @@ generator = WordGenerator(names)
 @app.route('/')
 def Home():
   name = generator.GenerateWord()
+  name = name[0].upper() + name[1:]  # Capitalize name
   return render_template('home.html', name=name)
